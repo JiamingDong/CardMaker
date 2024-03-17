@@ -79,9 +79,7 @@ namespace CardMarker
             button3 = new Button();
             menuStrip1 = new MenuStrip();
             帮助ToolStripMenuItem = new ToolStripMenuItem();
-            程序位置ToolStripMenuItem = new ToolStripMenuItem();
             打开allcardskinconfigcsvToolStripMenuItem = new ToolStripMenuItem();
-            帮助文档ToolStripMenuItem = new ToolStripMenuItem();
             关于ToolStripMenuItem = new ToolStripMenuItem();
             groupBox4 = new GroupBox();
             radioButton2 = new RadioButton();
@@ -575,17 +573,10 @@ namespace CardMarker
             // 
             // 帮助ToolStripMenuItem
             // 
-            帮助ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 程序位置ToolStripMenuItem, 打开allcardskinconfigcsvToolStripMenuItem, 帮助文档ToolStripMenuItem, 关于ToolStripMenuItem });
+            帮助ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 打开allcardskinconfigcsvToolStripMenuItem, 关于ToolStripMenuItem });
             帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
             帮助ToolStripMenuItem.Size = new Size(53, 24);
             帮助ToolStripMenuItem.Text = "帮助";
-            // 
-            // 程序位置ToolStripMenuItem
-            // 
-            程序位置ToolStripMenuItem.Name = "程序位置ToolStripMenuItem";
-            程序位置ToolStripMenuItem.Size = new Size(292, 26);
-            程序位置ToolStripMenuItem.Text = "打开程序所在位置";
-            程序位置ToolStripMenuItem.Click += 程序位置ToolStripMenuItem_Click;
             // 
             // 打开allcardskinconfigcsvToolStripMenuItem
             // 
@@ -593,13 +584,6 @@ namespace CardMarker
             打开allcardskinconfigcsvToolStripMenuItem.Size = new Size(292, 26);
             打开allcardskinconfigcsvToolStripMenuItem.Text = "打开all_card_skin_config.csv";
             打开allcardskinconfigcsvToolStripMenuItem.Click += 打开allcardskinconfigcsvToolStripMenuItem_Click;
-            // 
-            // 帮助文档ToolStripMenuItem
-            // 
-            帮助文档ToolStripMenuItem.Name = "帮助文档ToolStripMenuItem";
-            帮助文档ToolStripMenuItem.Size = new Size(292, 26);
-            帮助文档ToolStripMenuItem.Text = "帮助文档";
-            帮助文档ToolStripMenuItem.Click += 帮助文档ToolStripMenuItem_Click;
             // 
             // 关于ToolStripMenuItem
             // 
@@ -920,9 +904,7 @@ namespace CardMarker
         private TextBox textBox23;
         private Label label16;
         private TextBox textBox25;
-        private ToolStripMenuItem 帮助文档ToolStripMenuItem;
         private ToolStripMenuItem 关于ToolStripMenuItem;
-        private ToolStripMenuItem 程序位置ToolStripMenuItem;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
         private ToolStripMenuItem 打开allcardskinconfigcsvToolStripMenuItem;

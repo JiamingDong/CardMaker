@@ -675,7 +675,7 @@ namespace CardMarker
                     graphics.DrawImage(hpBitmap, 0x15b - (hpBitmap.Width * 0x1f / hpBitmap.Height), 0x199, (hpBitmap.Width * 0x3e) / hpBitmap.Height, 0x3e);
                 }
             }
-            if (cardKind == CardKind.Equip && !string.IsNullOrEmpty(textBox5.Text))
+            if ((cardKind == CardKind.Equip || cardKind == CardKind.Weapon) && !string.IsNullOrEmpty(textBox5.Text))
             {
                 graphics.DrawImage(Image.FromFile("ui/armor_bg.png"), 0x132, 400, 97, 100);
                 Bitmap hpBitmap = NumToBitmap(textBox5.Text);
@@ -735,12 +735,12 @@ namespace CardMarker
 
         private void 打开allcardskinconfigcsvToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("notepad.exe", "all_card_skin_config.csv");
+            Process.Start("notepad.exe", "ui/all_card_skin_config.csv");
         }
 
         private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("v1.0\n作者：红色的哥\n邮箱：2451983550@qq.com\nqq:2451983550", "关于");
+            MessageBox.Show("v2.0\n作者：红色的哥\n邮箱：2451983550@qq.com\nqq:2451983550", "关于");
         }
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
