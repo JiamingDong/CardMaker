@@ -68,7 +68,7 @@ namespace CardMarker
             comboBox5.DisplayMember = "Value";
             comboBox5.ValueMember = "Key";
 
-            textBox1.Text = @"clericalcrown.png";
+            textBox1.Text = @"ui/bighunter.jpg";
             textBox2.Text = "0";
             textBox3.Text = "35";
             textBox4.Text = "0";

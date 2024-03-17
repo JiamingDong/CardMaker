@@ -242,7 +242,7 @@ namespace CardMarker
             groupBox1.Controls.Add(label12);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(label11);
-            groupBox1.Location = new Point(311, 289);
+            groupBox1.Location = new Point(304, 289);
             groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 4, 3, 4);
@@ -711,7 +711,7 @@ namespace CardMarker
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(112, 27);
             textBox8.TabIndex = 4;
-            textBox8.Text = "#fffff";
+            textBox8.Text = "#ffffff";
             // 
             // groupBox6
             // 
