@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Text.RegularExpressions;
 
 namespace CardMarker
 {
@@ -328,13 +329,40 @@ namespace CardMarker
                 Image borderImage2 = null;
                 if (radioButton5.Checked)
                 {
-                    if (cardKind == CardKind.Consume)
+                    if (cardColor2 == CardColor.None)
                     {
-                        borderImage2 = borderBitmap2;
+                        if (radioButton3.Checked)
+                        {
+                            switch (cardColor1)
+                            {
+                                case CardColor.Balance:
+                                    borderImage2 = ConvertColor(borderBitmap2, DefaultColor.balance);
+                                    break;
+                                case CardColor.Chaos:
+                                    borderImage2 = ConvertColor(borderBitmap2, DefaultColor.chaos);
+                                    break;
+                                case CardColor.Fortune:
+                                    borderImage2 = ConvertColor(borderBitmap2, DefaultColor.fortune);
+                                    break;
+                                case CardColor.Nature:
+                                    borderImage2 = ConvertColor(borderBitmap2, DefaultColor.nature);
+                                    break;
+                                case CardColor.War:
+                                    borderImage2 = ConvertColor(borderBitmap2, DefaultColor.war);
+                                    break;
+                                default:
+                                    borderImage2 = borderBitmap2;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            borderImage2 = ConvertColor(borderBitmap2, Color.FromArgb(Convert.ToInt32(textBox8.Text.Replace("#", ""), 16)));
+                        }
                     }
                     else
                     {
-                        switch (cardColor2 == CardColor.None ? cardColor1 : cardColor2)
+                        switch (cardColor2)
                         {
                             case CardColor.Balance:
                                 borderImage2 = ConvertColor(borderBitmap2, DefaultColor.balance);
@@ -406,12 +434,18 @@ namespace CardMarker
             if (radioButton4.Checked)
             {
                 iconBgImage1 = ConvertColor(iconBgBitmap, Color.FromArgb(Convert.ToInt32(textBox8.Text.Replace("#", ""), 16)));
-                iconImage1 = Image.FromFile(textBox17.Text);
+                if (!string.IsNullOrEmpty(textBox17.Text))
+                {
+                    iconImage1 = Image.FromFile(textBox17.Text);
+                }
             }
             graphics.DrawImage(iconBgImage1, 0x12, 0x5d, 0x42, 82);
-            graphics.DrawImage(iconImage1, 0x23, 107, 30, 32);
+            if (iconImage1 != null)
+            {
+                graphics.DrawImage(iconImage1, 33, 106, 34, 38);
+            }
 
-            if (cardColor2 != CardColor.None || radioButton6.Checked)
+            if (!radioButton5.Checked || cardColor2 != CardColor.None)
             {
                 Bitmap iconBgBitmap2 = new(iconBgBitmap.Width, iconBgBitmap.Height);
                 for (int i = 0; i < iconBgBitmap.Width; i++)
@@ -424,7 +458,16 @@ namespace CardMarker
 
                 Image iconBgImage2 = null;
                 Image iconImage2 = null;
-                if (radioButton5.Checked)
+
+                if (!radioButton5.Checked)
+                {
+                    iconBgImage2 = ConvertColor(iconBgBitmap2, Color.FromArgb(Convert.ToInt32(textBox16.Text.Replace("#", ""), 16)));
+                    if (!string.IsNullOrEmpty(textBox18.Text))
+                    {
+                        iconImage2 = Image.FromFile(textBox18.Text);
+                    }
+                }
+                else if (cardColor2 != CardColor.None)
                 {
                     switch (cardColor2)
                     {
@@ -453,18 +496,18 @@ namespace CardMarker
                             iconImage2 = Image.FromFile("ui/coloricon/coloricon_all.png");
                             break;
                     }
+
                     if (cardKind == CardKind.Consume)
                     {
                         iconBgImage2 = iconBgBitmap2;
                     }
                 }
-                if (radioButton6.Checked)
-                {
-                    iconBgImage2 = ConvertColor(iconBgBitmap2, Color.FromArgb(Convert.ToInt32(textBox16.Text.Replace("#", ""), 16)));
-                    iconImage2 = Image.FromFile(textBox18.Text);
-                }
+
                 graphics.DrawImage(iconBgImage2, 0x13a, 0x5c, 0x42, 82);
-                graphics.DrawImage(iconImage2, 0x14d, 107, 30, 32);
+                if (iconImage2 != null)
+                {
+                    graphics.DrawImage(iconImage2, 331, 106, 34, 38);
+                }
             }
 
             //卡牌名称背景
@@ -519,26 +562,60 @@ namespace CardMarker
             {
                 if (radioButton5.Checked)
                 {
-                    switch (cardColor2 == CardColor.None ? cardColor1 : cardColor2)
+                    if (cardColor2 == CardColor.None)
                     {
-                        case CardColor.Balance:
-                            titleImage2 = ConvertColor(titleBitmap2, DefaultColor.balance);
-                            break;
-                        case CardColor.Chaos:
-                            titleImage2 = ConvertColor(titleBitmap2, DefaultColor.chaos);
-                            break;
-                        case CardColor.Fortune:
-                            titleImage2 = ConvertColor(titleBitmap2, DefaultColor.fortune);
-                            break;
-                        case CardColor.Nature:
-                            titleImage2 = ConvertColor(titleBitmap2, DefaultColor.nature);
-                            break;
-                        case CardColor.War:
-                            titleImage2 = ConvertColor(titleBitmap2, DefaultColor.war);
-                            break;
-                        default:
-                            titleImage2 = titleBitmap2;
-                            break;
+                        if (radioButton3.Checked)
+                        {
+                            switch (cardColor1)
+                            {
+                                case CardColor.Balance:
+                                    titleImage2 = ConvertColor(titleBitmap2, DefaultColor.balance);
+                                    break;
+                                case CardColor.Chaos:
+                                    titleImage2 = ConvertColor(titleBitmap2, DefaultColor.chaos);
+                                    break;
+                                case CardColor.Fortune:
+                                    titleImage2 = ConvertColor(titleBitmap2, DefaultColor.fortune);
+                                    break;
+                                case CardColor.Nature:
+                                    titleImage2 = ConvertColor(titleBitmap2, DefaultColor.nature);
+                                    break;
+                                case CardColor.War:
+                                    titleImage2 = ConvertColor(titleBitmap2, DefaultColor.war);
+                                    break;
+                                default:
+                                    titleImage2 = titleBitmap2;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            titleImage2 = ConvertColor(titleBitmap2, Color.FromArgb(Convert.ToInt32(textBox8.Text.Replace("#", ""), 16)));
+                        }
+                    }
+                    else
+                    {
+                        switch (cardColor2)
+                        {
+                            case CardColor.Balance:
+                                titleImage2 = ConvertColor(titleBitmap2, DefaultColor.balance);
+                                break;
+                            case CardColor.Chaos:
+                                titleImage2 = ConvertColor(titleBitmap2, DefaultColor.chaos);
+                                break;
+                            case CardColor.Fortune:
+                                titleImage2 = ConvertColor(titleBitmap2, DefaultColor.fortune);
+                                break;
+                            case CardColor.Nature:
+                                titleImage2 = ConvertColor(titleBitmap2, DefaultColor.nature);
+                                break;
+                            case CardColor.War:
+                                titleImage2 = ConvertColor(titleBitmap2, DefaultColor.war);
+                                break;
+                            default:
+                                titleImage2 = titleBitmap2;
+                                break;
+                        }
                     }
                 }
                 if (radioButton6.Checked)
@@ -759,112 +836,52 @@ namespace CardMarker
             }
         }
 
-        private Bitmap Paiamian()
+        private void button4_Click(object sender, EventArgs e)
         {
-            CardKind cardKind = (CardKind)comboBox1.SelectedValue;
-
-            int num;
-            int num2;
-            Image original = Image.FromFile(textBox1.Text);
-            if (!radioButton1.Checked)
+            OpenFileDialog dialog = new OpenFileDialog
             {
-                num = (int)(original.Width * Convert.ToDecimal(textBox15.Text));
-                num2 = (int)(original.Height * Convert.ToDecimal(textBox15.Text));
-            }
-            else if ((((float)original.Width) / ((float)original.Height)) > 0.8097561f)
+                Multiselect = false,
+                Title = "选择图像",
+                Filter = "所有文件(*.*)|*.*"
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                num = (original.Width * 410) / original.Height;
-                num2 = 410;
+                textBox17.Text = dialog.FileName;
             }
-            else
-            {
-                num = 0x14c;
-                num2 = (original.Height * 0x14c) / original.Width;
-            }
-            Bitmap image = new Bitmap(original, num, num2);
-            image.SetResolution(0x60f, 0x60f);
-            Bitmap bitmap2 = new Bitmap(0x14c, 410, PixelFormat.Format32bppArgb);
-            bitmap2.SetResolution(0x60f, 0x60f);
-            Graphics graphics = Graphics.FromImage(bitmap2);
-            graphics.Clear(Color.Empty);
-            graphics.DrawImage(image, new Rectangle(0, 0, 0x14c, 410), new Rectangle(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox3.Text), 0x14c, 410), GraphicsUnit.Pixel);
-            graphics.Dispose();
-
-            if (cardKind == CardKind.Consume)
-            {
-                Color color = Color.FromArgb(0, 0, 0, 0);
-                int num3 = 0;
-                while (true)
-                {
-                    if (num3 >= 0x22)
-                    {
-                        int x = 0;
-                        while (true)
-                        {
-                            if (x >= 140)
-                            {
-                                break;
-                            }
-                            int num7 = 0x22 - ((int)(0.19 * x));
-                            int num8 = 410 - num7;
-                            while (true)
-                            {
-                                if (num8 >= 410)
-                                {
-                                    x++;
-                                    break;
-                                }
-                                bitmap2.SetPixel(x, num8, color);
-                                bitmap2.SetPixel(0x14b - x, num8, color);
-                                num8++;
-                            }
-                        }
-                        break;
-                    }
-                    int num4 = 0x23 - ((int)(0.6 * num3));
-                    int y = 400 - num4;
-                    while (true)
-                    {
-                        if (y >= 410)
-                        {
-                            num3++;
-                            break;
-                        }
-                        bitmap2.SetPixel(0xa5 - num3, y, color);
-                        bitmap2.SetPixel(0xa5 + num3, y, color);
-                        y++;
-                    }
-                }
-            }
-            return bitmap2;
         }
 
-        private Bitmap shuzipinjie(Bitmap map1, Bitmap map2)
+        private void button5_Click(object sender, EventArgs e)
         {
-            Bitmap image = new Bitmap(map1.Width + map2.Width, Math.Max(map1.Height, map2.Height));
-            Graphics graphics = Graphics.FromImage(image);
-            graphics.DrawImage(map1, 0, 0, map1.Width, map2.Height);
-            graphics.DrawImage(map2, map1.Width, 0, map2.Width, map2.Height);
-            map1.Dispose();
-            map2.Dispose();
-            return image;
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Multiselect = false,
+                Title = "选择图像",
+                Filter = "所有文件(*.*)|*.*"
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                textBox18.Text = dialog.FileName;
+            }
         }
 
-        private Bitmap NumToBitmap(string numText)
+        private static Bitmap NumToBitmap(string numText)
         {
             Bitmap bitmap = new(54 * numText.Length, 73);
             Graphics graphics = Graphics.FromImage(bitmap);
 
             for (int i = 0; i < numText.Length; i++)
             {
-                Bitmap numBitmap = new(Image.FromFile("ui/num_img/" + numText[i].ToString() + ".png"));
-                graphics.DrawImage(numBitmap, 54 * i, 0);
+                if (MyRegex().IsMatch(numText[i].ToString()))
+                {
+                    Bitmap numBitmap = new(Image.FromFile("ui/num_img/" + numText[i].ToString() + ".png"));
+                    graphics.DrawImage(numBitmap, 54 * i, 0);
+                }
             }
 
             return bitmap;
         }
 
-        private Bitmap TextToBitmap(string text)
+        private static Bitmap TextToBitmap(string text)
         {
             if (text.Length < 3)
             {
@@ -872,14 +889,14 @@ namespace CardMarker
             }
             PrivateFontCollection fonts = new PrivateFontCollection();
             fonts.AddFontFile("ui/font.ttf");
-            Font font = new Font(fonts.Families[0], 80f);
+            Font font = new(fonts.Families[0], 80f);
             StringFormat stringFormat = new StringFormat(StringFormatFlags.NoClip);
-            Bitmap image = new Bitmap(1, 1);
+            Bitmap image = new(1, 1);
             SizeF ef = Graphics.FromImage(image).MeasureString(text, font, PointF.Empty, stringFormat);
             int width = (int)(ef.Width + 1f);
             int height = (int)(ef.Height + 1f);
             image.Dispose();
-            image = new Bitmap(width, height);
+            image = new(width, height);
             Graphics graphics = Graphics.FromImage(image);
             graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             graphics.DrawString(text, font, Brushes.White, new Rectangle(5, 12, width, height), stringFormat);
@@ -888,7 +905,7 @@ namespace CardMarker
             {
                 if (x >= (image.Width - 4))
                 {
-                    Bitmap bitmap2 = new Bitmap(width, height);
+                    Bitmap bitmap2 = new(width, height);
                     Graphics graphics2 = Graphics.FromImage(bitmap2);
                     graphics2.DrawImage(image, 0, 0);
                     graphics2.DrawImage(bitmap2, 0, -1);
@@ -941,7 +958,7 @@ namespace CardMarker
             }
         }
 
-        private Bitmap ConvertColor(Bitmap bitmap, Color color)
+        private static Bitmap ConvertColor(Bitmap bitmap, Color color)
         {
             Bitmap result = new(bitmap.Width, bitmap.Height);
             for (int i = 0; i < bitmap.Width; i++)
@@ -957,33 +974,8 @@ namespace CardMarker
             return result;
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog
-            {
-                Multiselect = false,
-                Title = "选择图像",
-                Filter = "所有文件(*.*)|*.*"
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                textBox17.Text = dialog.FileName;
-            }
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog
-            {
-                Multiselect = false,
-                Title = "选择图像",
-                Filter = "所有文件(*.*)|*.*"
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                textBox18.Text = dialog.FileName;
-            }
-        }
+        [GeneratedRegex("[-0-9]")]
+        private static partial Regex MyRegex();
     }
 
     enum CardKind
